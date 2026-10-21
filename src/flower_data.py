@@ -1,4 +1,3 @@
-import os
 import pathlib
 import cv2
 import numpy as np
@@ -11,15 +10,22 @@ HEIGHT, WIDTH = 180, 180
 # Images are loaded a bit larger than the target size so RandomCrop has room to crop from.
 LOAD_HEIGHT, LOAD_WIDTH = HEIGHT + 20, WIDTH + 20
 TRAINING_BATCH_SIZE = 32
+KERAS_DATASETS_DIR = pathlib.Path("./.keras/datasets")
 DATASET_DIRNAME = "flower_photos"
 AUGMENTED_DIRNAME = "flower_photos_augmented"
 COPIES_PER_IMAGE = 5
 
 
 def download_flowers_data():
-    """Download the flower photos dataset and return its local path."""
+    """Download the flower photos dataset into the project and return its path."""
     flowers_url = "https://storage.googleapis.com/download.tensorflow.org/example_images/flower_photos.tgz"
-    extracted_dir = tf.keras.utils.get_file(DATASET_DIRNAME, origin=flowers_url, untar=True)
+    extracted_dir = tf.keras.utils.get_file(
+        DATASET_DIRNAME,
+        origin=flowers_url,
+        untar=True,
+        cache_dir=str(KERAS_DATASETS_DIR.parent),
+        cache_subdir=KERAS_DATASETS_DIR.name,
+    )
     # The archive's own top-level folder is also called "flower_photos", so the actual
     # class subfolders live one level deeper than what get_file() returns.
     flowers_data = pathlib.Path(extracted_dir) / DATASET_DIRNAME
@@ -78,8 +84,7 @@ def get_augmented_data_dir():
     Does not create or download anything - the dataset must already have been
     built on disk, e.g. by running this module standalone (`python flower_data.py`).
     """
-    keras_cache_dir = pathlib.Path(os.path.expanduser('~')) / '.keras' / 'datasets'
-    return keras_cache_dir / DATASET_DIRNAME / AUGMENTED_DIRNAME
+    return KERAS_DATASETS_DIR / DATASET_DIRNAME / AUGMENTED_DIRNAME
 
 
 def load_datasets(flowers_data):
