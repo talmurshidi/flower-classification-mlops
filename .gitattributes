@@ -1,0 +1,23 @@
+* text=auto eol=lf
+
+# Keep source and configuration files consistent across operating systems.
+*.py text eol=lf
+*.toml text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.sh text eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Do not apply text conversions to binary files.
+*.gif binary
+*.h5 binary
+*.jpeg binary
+*.jpg binary
+*.keras binary
+*.png binary
+*.tar binary
+*.tgz binary
+*.zip binary
