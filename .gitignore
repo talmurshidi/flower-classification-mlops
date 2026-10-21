@@ -221,3 +221,7 @@ __marimo__/
 
 # PyCharm
 .idea
+
+# Datasets
+.keras/datasets
+datasets/

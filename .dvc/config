@@ -1,0 +1,4 @@
+[core]
+    remote = dvcremote
+['remote "dvcremote"']
+    url = D:\dvc_local_remote
